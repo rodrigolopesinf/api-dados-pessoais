@@ -1,0 +1,198 @@
+--- 
+apiVersion: v1
+items: 
+  - 
+    apiVersion: autoscaling/v2beta1
+    kind: HorizontalPodAutoscaler
+    metadata: 
+      annotations: 
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: ~
+      labels: 
+        app: _@AppName@_
+      name: _@AppName@_
+    spec: 
+      maxReplicas: _@MAX-REPLICAS@_
+      metrics: 
+        - 
+          resource: 
+            name: cpu
+            targetAverageUtilization: 80
+          type: Resource
+      minReplicas: _@MIN-REPLICAS@_
+      scaleTargetRef: 
+        apiVersion: v1
+        kind: DeploymentConfig
+        name: _@AppName@_
+  - 
+    apiVersion: v1
+    kind: Service
+    metadata: 
+      annotations: 
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: ~
+      labels: 
+        app: _@AppName@_
+      name: _@AppName@_
+    spec: 
+      ports: 
+        - 
+          name: 5050-tcp
+          port: 5050
+          protocol: TCP
+          targetPort: 5050
+      selector: 
+        app: _@AppName@_
+        deploymentconfig: _@AppName@_
+      sessionAffinity: None
+      type: ClusterIP
+  - 
+    apiVersion: v1
+    kind: DeploymentConfig
+    metadata: 
+      annotations: 
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: ~
+      generation: 1
+      labels: 
+        app: _@AppName@_
+      name: _@AppName@_
+    spec: 
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector: 
+        app: _@AppName@_
+        deploymentconfig: _@AppName@_
+      strategy: 
+        activeDeadlineSeconds: 21600
+        resources: {}
+        rollingParams: 
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template: 
+        metadata: 
+          annotations: 
+            openshift.io/generated-by: OpenShiftNewApp
+          creationTimestamp: ~
+          labels: 
+            app: _@AppName@_
+            deploymentconfig: _@AppName@_
+        spec: 
+          containers: 
+            - 
+              env: 
+                - 
+                  name: ASPNETCORE_URLS
+                  value: 'http://*:5050'
+                - 
+                  name: GATEWAY_PROTOCOL
+                  valueFrom: 
+                    configMapKeyRef: 
+                      key: GATEWAY_PROTOCOL
+                      name: global
+                - 
+                  name: GATEWAY_HOST
+                  valueFrom: 
+                    configMapKeyRef: 
+                      key: GATEWAY_HOST
+                      name: global 
+                - 
+                  name: BILL_PROTOCOL
+                  valueFrom: 
+                    configMapKeyRef: 
+                      key: BILL_PROTOCOL
+                      name: global
+                - 
+                  name: BILL_HOST
+                  valueFrom: 
+                    configMapKeyRef: 
+                      key: BILL_HOST
+                      name: global                      
+                - 
+                  name: CNN_STR_CADASTRO
+                  valueFrom: 
+                    secretKeyRef: 
+                      key: CNN_STR_CADASTRO
+                      name: connections
+                -
+                  name: TZ
+                  value: 'America/Sao_Paulo'  
+              image: "_@RegistryAddress@_/ag-bkg-business-img/_@AppName@_:_@Tag@_"
+              imagePullPolicy: IfNotPresent
+              livenessProbe: 
+                failureThreshold: 3
+                httpGet: 
+                  path: /healthcheck
+                  port: 5050
+                  scheme: HTTP
+                initialDelaySeconds: 120
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 2
+              name: _@AppName@_
+              ports: 
+                - 
+                  containerPort: 5050
+                  protocol: TCP
+              readinessProbe: 
+                failureThreshold: 3
+                httpGet: 
+                  path: /healthcheck
+                  port: 5050
+                  scheme: HTTP
+                initialDelaySeconds: 120
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 2
+              resources: 
+                limits: 
+                  cpu: _@CPU-LIMIT@_
+                  memory: _@MEMMORY-LIMIT@_
+                requests: 
+                  cpu: _@CPU-REQUEST@_
+                  memory: _@MEMMORY-REQUEST@_
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+      test: false
+      triggers: 
+        - 
+          type: ConfigChange
+        - 
+          imageChangeParams: 
+            automatic: true
+            containerNames: 
+              - _@AppName@_
+            from: 
+              kind: ImageStreamTag
+              name: "_@AppName@_:_@Tag@_"
+              namespace: ag-bkg-business-img
+          type: ImageChange
+  - 
+    apiVersion: v1
+    kind: Route
+    metadata: 
+      creationTimestamp: ~
+      labels: 
+        app: _@AppName@_
+        route: _@RouterName@_
+      name: _@AppName@_
+    spec: 
+      host: _@Host@_
+      port: 
+        targetPort: 5050-tcp
+      to: 
+        kind: Service
+        name: _@AppName@_
+        weight: 100
+      wildcardPolicy: None
+kind: List
+metadata: {}

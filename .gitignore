@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Agora.Brokerage.Alteracao.DadosPessoais.Api/bin/Debug/net6.0
+/Agora.Brokerage.Alteracao.DadosPessoais.Api/obj
+/Agora.Brokerage.Alteracao.DadosPessoais.Core/bin/Debug/net6.0
+/Agora.Brokerage.Alteracao.DadosPessoais.Core/obj
+/Agora.Brokerage.Alteracao.DadosPessoais.Api/.vs/Agora.Brokerage.Alteracao.DadosPessoais.Api

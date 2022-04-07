@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agora.Brokerage.Alteracao.DadosPessoais.Api", "Agora.Brokerage.Alteracao.DadosPessoais.Api\Agora.Brokerage.Alteracao.DadosPessoais.Api.csproj", "{89056A55-A0F2-473B-88B6-563A7122FC59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agora.Brokerage.Alteracao.DadosPessoais.Core", "Agora.Brokerage.Alteracao.DadosPessoais.Core\Agora.Brokerage.Alteracao.DadosPessoais.Core.csproj", "{1F973913-BEE7-474A-A3E8-9947072B5DD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89056A55-A0F2-473B-88B6-563A7122FC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89056A55-A0F2-473B-88B6-563A7122FC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89056A55-A0F2-473B-88B6-563A7122FC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89056A55-A0F2-473B-88B6-563A7122FC59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F973913-BEE7-474A-A3E8-9947072B5DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F973913-BEE7-474A-A3E8-9947072B5DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F973913-BEE7-474A-A3E8-9947072B5DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F973913-BEE7-474A-A3E8-9947072B5DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB5CD5B2-AE14-4E55-AD1D-0E11F2F11FEE}
+	EndGlobalSection
+EndGlobal
